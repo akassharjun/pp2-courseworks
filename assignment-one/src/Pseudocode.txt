@@ -1,0 +1,100 @@
+BEGIN
+SET scores to empty Map<String, Integer>
+
+WHILE True
+
+  PRINT "Welcome to Springfield Golf Club."
+  PRINT "Select an option: "
+  PRINT "1) Enter Scores"
+  PRINT "2) Find Golfer"
+  PRINT "3) Display Scoreboard"
+  PRINT "4) Exit Program"
+
+  SET option to 0
+  INPUT option
+
+  IF option is not an INTEGER THEN
+    PRINT "Please enter a valid integer."
+    CONTINUE
+  ENDIF
+
+  IF option == 1 THEN
+     enterScore()
+  ELSE IF option == 2 THEN
+     findGolfer()
+  ELSE IF option == 3 THEN
+     displayScoreboard()
+  ELSE IF option == 4 THEN
+    PRINT "You chose to exit."
+    BREAK
+
+
+  ELSE
+    PRINT "Invalid option, please try again"
+  ENDIF
+
+END
+
+FUNCTION enterScore
+
+    SET numberOfGolfers to 0
+    INPUT numberOfGolfers
+    SET count to 0
+
+    WHILE count < numberOfGolfers
+      SET numberOfStrokes to 0
+      SET name to ""
+      INPUT name, numberOfStrokes
+
+      IF numberOfStrokes < 18 OR numberOfStrokes > 108 THEN
+        PRINT "Please enter a value between 18 and 108 for strokes."
+        CONTINUE
+      ENDIF
+
+      IF scores contains name THEN
+        PRINT "This golfer already has a score, would you like to overwrite the score? (Y 	for Yes) :"
+        SET response = ""
+        INPUT response
+        IF response == "Y" THEN
+          scores replace name, numberOfStrokes
+          PRINT "Overwrote the score successfully."
+        ELSE
+          PRINT "Did not overwrite the score."
+	  count = count - 1
+        ENDIF
+      ELSE
+        scores put name, numberOfStrokes
+      ENDIF
+
+      count = count + 1
+    ENDWHILE
+
+ENDFUNCTION
+
+FUNCTION findGolfer()
+
+    PRINT "Enter the golfer's name : "
+    SET name to ""
+    INPUT name
+
+    IF scores contains name THEN
+      PRINT name + "'s score is" scores.get(name)
+    ELSE
+      PRINT "This golfer does not exist."
+    ENDIF
+
+ENDFUNCTION
+
+FUNCTION displayScoreboard()
+
+    SORT scores by Comparing Values
+
+    PRINT "Name, Score"
+
+    FOR score in scores
+      PRINT score.getKey() + ", " + score.getValue()
+
+ENDFUNCTION
+
+
+
