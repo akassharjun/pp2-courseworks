@@ -2,6 +2,7 @@ import java.util.*;
 import static java.util.Map.Entry.comparingByValue;
 import static java.util.stream.Collectors.toMap;
 import java.util.AbstractMap.SimpleEntry;
+
 /**
  * Golf Club
  * The golf club program implements an application that
@@ -13,17 +14,18 @@ import java.util.AbstractMap.SimpleEntry;
 
 public class GolfClub {
 	private static Map<String, Integer> scores = new HashMap<>();
-	//	private static Map<String, Integer> tempScores = new HashMap<>();
+	private static Map<String, Integer> deletedScores = new HashMap<>();
+
 	// STRING will be the name of the ACTION
 	// SimpleEntry will store the entry of the score/ or the necessary data.
 	private static Stack<SimpleEntry<String, Map<String, Integer>>> previousActions = new Stack<>();
 	private static Stack<SimpleEntry<String, Map<String, Integer>>> undoneActions = new Stack<>();
 
-	private static Map<String, Integer> deletedScores = new HashMap<>();
 	private static Scanner scanner = new Scanner(System.in);
 	private static final String DIVIDER = "+----------------------------+-----------+%n";
-	// The entry point for the program.
 
+
+	// The entry point for the program.
 	public static void main(String[] args) {
 		int option;
 		do {
@@ -463,5 +465,4 @@ public class GolfClub {
 
 		return fullName.toString();
 	}
-
 }
